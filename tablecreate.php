@@ -1,3 +1,5 @@
+<?php
+
 // PHP Data Objects(PDO) Sample Code:
 try {
     $conn = new PDO("sqlsrv:server = tcp:tt1.database.windows.net,1433; Database = tt1", "paripb", "Sketchpen$6");
