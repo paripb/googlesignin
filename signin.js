@@ -14,7 +14,6 @@ function onSignIn(googleUser)
 					alert("You have been Logged Out");
 					$(".g-signin2").css("diplay","block");
 					$(".data").css("diplay","none");
-					$("#pic").attr('src',"none");
-					$("#email").text("none");
+					
 				});
 			}
