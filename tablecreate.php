@@ -1,5 +1,5 @@
 <?php
-$host = 'tt1.database.windows.net';
+$host = 'tcp:tt1.database.windows.net,1433';
 $username = 'paripb';
 $password = 'Sketchpen$6';
 $db_name = 'tt1';
