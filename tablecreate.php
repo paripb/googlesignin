@@ -1,7 +1,7 @@
 <?php
 $host = 'tt1.database.windows.net';
 $username = 'paripb';
-$password = 'Sketchpen$6';
+$password = 'Apple@123';
 $db_name = 'tt1';
 
 //Establishes the connection
