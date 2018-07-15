@@ -1,28 +1,29 @@
 <?php
+$host = 'tt1.database.windows.net';
+$username = 'paripb';
+$password = 'Sketchpen$6';
+$db_name = 'tt1';
 
-// PHP Data Objects(PDO) Sample Code:
-try {
-    $conn = new PDO("sqlsrv:server = tcp:tt1.database.windows.net,1433; Database = tt1", "paripb", "Sketchpen$6");
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-    // sql to create table
-    $sql = "CREATE TABLE MyGuests (
-    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-    firstname VARCHAR(30) NOT NULL,
-    lastname VARCHAR(30) NOT NULL,
-    email VARCHAR(50),
-    reg_date TIMESTAMP
-    )";
-
-    // use exec() because no results are returned
-    $conn->exec($sql);
-    echo "Table MyGuests created successfully";
-    }
-
-catch (PDOException $e) {
-    print("Error connecting to SQL Server.");
-    die(print_r($e));
+//Establishes the connection
+$conn = mysqli_init();
+mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306);
+if (mysqli_connect_errno($conn)) {
+die('Failed to connect to MySQL: '.mysqli_connect_error());
 }
 
-$conn = null;
+// Run the create table query
+if (mysqli_query($conn, '
+CREATE TABLE Products (
+`Id` INT NOT NULL AUTO_INCREMENT ,
+`ProductName` VARCHAR(200) NOT NULL ,
+`Color` VARCHAR(50) NOT NULL ,
+`Price` DOUBLE NOT NULL ,
+PRIMARY KEY (`Id`)
+);
+')) {
+printf("Table created\n");
+}
+
+//Close the connection
+mysqli_close($conn);
 ?>
