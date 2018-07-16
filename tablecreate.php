@@ -1,6 +1,6 @@
 <?php
 $host = 'tt1.database.windows.net';
-$username = 'paripb@tt1.mysql.database.azure.com,1433';
+$username = 'paripb@tcp:tt1.mysql.database.azure.com';
 $password = 'Apple@123';
 $db_name = 'tt1';
 
