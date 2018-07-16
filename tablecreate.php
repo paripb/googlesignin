@@ -1,6 +1,6 @@
 <?php
-$host = 'tt1.database.azure.com';
-$username = 'paripb@tt1.database.azure.com';
+$host = 'tt1.database.windows.net';
+$username = 'paripb@tt1.database.windows.net';
 $password = 'Apple@123';
 $db_name = 'tt1';
 
