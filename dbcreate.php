@@ -1,6 +1,6 @@
 <?php
 $host = 'tt2.mysql.database.azure.com';
-$username = 'paripb';
+$username = 'paripb@tt2';
 $password = 'Apple@123';
 
 // Create connection
