@@ -2,7 +2,7 @@
 $host = 'tt2.mysql.database.azure.com';
 $username = 'paripb@tt2';
 $password = 'Apple@123';
-$db_name = 'tt1';
+$db_name = 'tt2';
 
 //Establishes the connection
 $conn = mysqli_init();
