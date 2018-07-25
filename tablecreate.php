@@ -1,18 +1,18 @@
 <?php
-$host = 'tt2.mysql.database.azure.com';
-$username = 'paripb@tt2';
+$host = 'tt1.database.windows.net';
+$username = 'paripb';
 $password = 'Apple@123';
-$db_name = 'tt2';
+$db_name = 'tt1';
 
 //Establishes the connection
 $conn = mysqli_init();
-mysqli_real_connect($conn, $host, $username, $password, $db_name);
-if (mysqli_connect_errno($conn)) {
-die('Failed to connect to MySQL: '.mysqli_connect_error());
+mssql_real_connect($conn, $host, $username, $password, $db_name);
+if (mssql_connect_errno($conn)) {
+die('Failed to connect to MsSQL: '.mssql_connect_error());
 }
 
 // Run the create table query
-if (mysqli_query($conn, '
+if (mssql_query($conn, '
 CREATE TABLE Products (
 `Id` INT NOT NULL AUTO_INCREMENT ,
 `ProductName` VARCHAR(200) NOT NULL ,
@@ -25,5 +25,5 @@ printf("Table created\n");
 }
 
 //Close the connection
-mysqli_close($conn);
+mssql_close($conn);
 ?>
