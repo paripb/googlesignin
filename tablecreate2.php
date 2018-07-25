@@ -12,7 +12,7 @@ catch (PDOException $e) {
 }
 
 // Run the create table query
-if (sql_query($conn, '
+if (sqlsrv_query($conn, '
 CREATE TABLE Products (
 `Id` INT NOT NULL AUTO_INCREMENT ,
 `ProductName` VARCHAR(200) NOT NULL ,
