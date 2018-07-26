@@ -1,36 +1,91 @@
-<?php
+<html>  
+<head>  
+<Title>Azure SQL Database - PHP Website</Title>  
+</head>  
+<body>  
+    <form method="post" action="?action=add" enctype="multipart/form-data" >  
+        Emp Id <input type="text" name="t_emp_id" id="t_emp_id"/></br>  
+        Name <input type="text" name="t_name" id="t_name"/></br>  
+        Education <input type="text" name="t_education" id="t_education"/></br>  
+        E-mail address <input type="text" name="t_email" id="t_email"/></br>  
+        <input type="submit" name="submit" value="Submit" />  
+    </form>  
 
-// PHP Data Objects(PDO) Sample Code:
-try {
-    $conn = new PDO("sqlsrv:server = tcp:tt1.database.windows.net,1433; Database = tt1", "paripb", "Apple@123");
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    print("Try");
-}
-catch (PDOException $e) {
-    print("Error connecting to SQL Server.");
-    die(print_r($e));
-}
-
-
-// SQL Server Extension Sample Code:
-$connectionInfo = array("UID" => "paripb@tt1", "pwd" => "Apple@123", "Database" => "tt1", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
-$serverName = "tcp:tt1.database.windows.net,1433";
-$conn = sqlsrv_connect($serverName, $connectionInfo);
-
-
-
-// Run the create table query
-if (sqlsrv_query($conn, '
-CREATE TABLE Products (
-`Id` INT NOT NULL AUTO_INCREMENT ,
-`ProductName` VARCHAR(200) NOT NULL ,
-`Color` VARCHAR(50) NOT NULL ,
-`Price` DOUBLE NOT NULL ,
-PRIMARY KEY (`Id`)
-);
-')) {
-printf("Table created\n");
-}
-
-?>
+<?php  
+/*Connect using SQL Server authentication.*/  
+$serverName = "tcp:tt1.database.windows.net,1433";  
+$connectionOptions = array(  
+    "Database" => "tt1",  
+    "UID" => "paripb",  
+    "PWD" => "Apple@123"  
+);  
+$conn = sqlsrv_connect($serverName, $connectionOptions);  
+  
+if ($conn === false)  
+    {  
+    die(print_r(sqlsrv_errors() , true));  
+    }  
+  
+if (isset($_GET['action']))  
+    {  
+    if ($_GET['action'] == 'add')  
+        {  
+        /*Insert data.*/  
+        $insertSql = "INSERT INTO empTable (emp_id,name,education,email)   
+VALUES (?,?,?,?)";  
+        $params = array(&$_POST['t_emp_id'], &$_POST['t_name'], &$_POST['t_education'], &$_POST['t_email']  
+        );  
+        $stmt = sqlsrv_query($conn, $insertSql, $params);  
+        if ($stmt === false)  
+            {  
+            /*Handle the case of a duplicte e-mail address.*/  
+            $errors = sqlsrv_errors();  
+            if ($errors[0]['code'] == 2601)  
+                {  
+                echo "The e-mail address you entered has already been used.</br>";  
+                }  
+  
+            /*Die if other errors occurred.*/  
+              else  
+                {  
+                die(print_r($errors, true));  
+                }  
+            }  
+          else  
+            {  
+            echo "Registration complete.</br>";  
+            }  
+        }  
+    }  
+  
+/*Display registered people.*/  
+/*$sql = "SELECT * FROM empTable ORDER BY name"; 
+$stmt = sqlsrv_query($conn, $sql); 
+if($stmt === false) 
+{ 
+die(print_r(sqlsrv_errors(), true)); 
+} 
+ 
+if(sqlsrv_has_rows($stmt)) 
+{ 
+print("<table border='1px'>"); 
+print("<tr><td>Emp Id</td>"); 
+print("<td>Name</td>"); 
+print("<td>education</td>"); 
+print("<td>Email</td></tr>"); 
+ 
+while($row = sqlsrv_fetch_array($stmt)) 
+{ 
+ 
+print("<tr><td>".$row['emp_id']."</td>"); 
+print("<td>".$row['name']."</td>"); 
+print("<td>".$row['education']."</td>"); 
+print("<td>".$row['email']."</td></tr>"); 
+} 
+ 
+print("</table>"); 
+}*/  
+?>  
+</body>  
+</html>  
 
